@@ -10,6 +10,7 @@
     "axios": "^0.21.0",
     "axios-auth-refresh": "^3.0.0",
     "bootstrap": "^4.5.3",
+    "jsdoc": "^3.6.6",
     "mkcert": "^1.4.0",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",

@@ -1,5 +1,13 @@
 import React from 'react'
 
+/**
+ * Компонента сообщение
+ * @param userName имя отправителя
+ * @param senderName имя отправителя
+ * @param text текст сообщения
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export default function Message({userName, senderName, text}) {
 
     if (senderName == userName) {

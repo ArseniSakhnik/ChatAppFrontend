@@ -4,6 +4,12 @@ import {sendMessage} from "@microsoft/signalr/dist/esm/Utils";
 import dialog from "../Dialogs/Dialog/dialog";
 import {useRecipients} from "../../ChatProvider/chatProviderRecipients";
 
+/**
+ * Компонента отправки сообщения
+ * @param connection прямое соединение
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export default function InputMessage({connection}) {
 
     const [text, setText] = useState('')
@@ -22,7 +28,10 @@ export default function InputMessage({connection}) {
         setText(e.target.value)
     }
 
-
+    /**
+     * Отправляет сообщение
+     * @returns {Promise<void>}
+     */
     const sendMessage = async () => {
         if (connection.connectionStarted && dialogId != -1) {
             console.log('input message: connection started')

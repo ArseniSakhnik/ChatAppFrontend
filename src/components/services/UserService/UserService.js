@@ -7,8 +7,14 @@ export default class UserService {
     isAuthorized = false;
 
     constructor() {
+        this.refreshTokenByDelay(3600000);
+    }
 
-        const delay = 3600000;
+    /**
+     * Устанавливает, через какое время необходимо отправлять серверу запрос на обновление
+     * @param time время, через которое необходимо обновлять токен
+     */
+    refreshTokenByDelay = (delay) => {
         const timeRefreshToken = () => {
             console.log('user service: token updated')
             axios.post(this._apiBase + '/users/refresh-token', {}, {
@@ -26,11 +32,17 @@ export default class UserService {
                 timeRefreshToken()
             }, delay)
         }
-
         timeRefreshToken()
-
     }
 
+    /**
+     * Отправляет запрос аутентификации серверу и заполняет local storage
+     * @param {string} username имя пользователя
+     * @param {string} password пароль пользователя
+     * @example
+     * authentication('test', 'test')
+     * @returns {Promise<AxiosResponse<any>>} Возвращает промис, содержащий ответ сервера
+     */
     authentication = (username, password) => {
         return axios.post(this._apiBase + '/users/authenticate', {
                 username,
@@ -49,7 +61,14 @@ export default class UserService {
             localStorage.setItem('username', JSON.stringify(user))
         })
     }
-
+    /**
+     * Отправляет запрос аутентификации серверу и заполняет local storage
+     * @param {string} username имя пользователя
+     * @param {string} password пароль пользователя
+     * @example
+     * registration('test', 'passwordTest')
+     * @returns {Promise<AxiosResponse<any>>} Возвращает промис, содержащий ответ сервера
+     */
     registration = (username, password) => {
         return axios.post(this._apiBase + '/users/registration', {
             username,
@@ -60,7 +79,11 @@ export default class UserService {
             console.log('user service: registration ', response)
         })
     }
-
+    /**
+     *
+     * @param username
+     * @returns {Promise<AxiosResponse<any>>}
+     */
     userExists = (username) => {
         return axios.post(this._apiBase + '/users/get', {
             username

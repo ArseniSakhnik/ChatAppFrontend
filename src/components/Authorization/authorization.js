@@ -3,7 +3,12 @@ import {Link} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css'
 import Error from "../error";
 
-
+/**
+ * Компонента авторизации
+ * @param userService
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function Authorization({userService}) {
 
     const [username, setUsername] = useState('')
@@ -18,6 +23,10 @@ function Authorization({userService}) {
         setPassword(event.target.value)
     }
 
+    /**
+     * Отправляет запрос аутентификации и обновляет страницу
+     * @param event
+     */
     const handleSubmit = (event) => {
         event.preventDefault()
         userService.authentication(username, password)

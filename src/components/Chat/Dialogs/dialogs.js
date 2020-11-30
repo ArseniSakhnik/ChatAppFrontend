@@ -5,11 +5,18 @@ import Spinner from "../../spinner";
 import {useChat} from "../../ChatProvider/ChatProvider";
 import {useRecipients} from "../../ChatProvider/chatProviderRecipients";
 
+/**
+ *
+ * @param data Данные о диалоге
+ * @param showDialogue Выбирает диалог
+ * @param connection Соединение
+ * @param userService {UserService} Сервис для связи с пользователь
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export default function Dialogs({data, showDialogue, connection, userService}) {
 
     const [username, setUsername] = useState('')
-    const [dialogName, setDialogName] = useState('')
-    const [dialogueParticipantsUnique, setDialogueParticipantsUnique] = useState([])
     const [dialogs, setDialogs] = useState([])
 
     useEffect(() => {

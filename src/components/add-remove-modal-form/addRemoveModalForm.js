@@ -4,7 +4,17 @@ import Error from "../error";
 import {useChat} from "../ChatProvider/ChatProvider";
 import {useRecipients} from "../ChatProvider/chatProviderRecipients";
 
-export default function AddRemoveModalForm({connection, type, handleShow, handleClose, show, userService}) {
+/**
+ * Модальное окно удаления или добавления
+ * @param connection {signalR} соединение
+ * @param type {String} тип: удаление, добавление
+ * @param handleClose метод закрытия модальног окна
+ * @param show {boolean} открыто ли окно
+ * @param userService {UserService} сервис для связи с сервером
+ * @returns {JSX.Element}
+ * @constructor
+ */
+export default function AddRemoveModalForm({connection, type, handleClose, show, userService}) {
 
     const [username, setUsername] = useState('')
     const [error, setError] = useState('')
@@ -17,6 +27,9 @@ export default function AddRemoveModalForm({connection, type, handleShow, handle
 
     const {recipients} = useRecipients()
 
+    /**
+     * Добавляет пользователя в диалог
+     */
     const addUserToDialog = () => {
         userService.userExists(username.replace(/\s/g, ''))
             .then(async response => {
@@ -42,6 +55,9 @@ export default function AddRemoveModalForm({connection, type, handleShow, handle
             })
     }
 
+    /**
+     * Удаляет пользователя из диалога
+     */
     const removeUserFromDialog = () => {
         userService.userExists(username.replace(/\s/g, ''))
             .then(async response => {

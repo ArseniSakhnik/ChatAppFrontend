@@ -1,7 +1,16 @@
 import React, {useState, useEffect} from "react";
 import AddRemoveModalForm from "../../../add-remove-modal-form";
 
-export default function Dialog({name, message, active, connection, userService}) {
+/**
+ * Компонента диалога
+ * @param name название диалога
+ * @param message последнее сообщение
+ * @param connection соединение
+ * @param userService сервис для связи с сервером
+ * @returns {JSX.Element}
+ * @constructor
+ */
+export default function Dialog({name, message, connection, userService}) {
 
     const [classList, setClassList] = useState('chat_list')
     const [type, setType] = useState('')
@@ -17,12 +26,8 @@ export default function Dialog({name, message, active, connection, userService})
 
     return (
         <div>
-
-
             <AddRemoveModalForm connection={connection} type={type} handleShow={handleShow}
                                 handleClose={handleClose} show={show} userService={userService}/>
-
-
             <div className={classList + ' dialogue-block'}>
                 <div className='button-add-remove-user-to-dialog'>
                     <button className='btn btn-light' onClick={() => {handleShow(); setType('add')}}>+</button>

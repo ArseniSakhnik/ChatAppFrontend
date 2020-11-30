@@ -1,15 +1,19 @@
 import React from 'react'
 import './App.css';
-import Authorization from "./components/Authorization";
-import UserService from "./components/services/UserService";
+import Authorization from "../Authorization";
+import UserService from "../services/UserService";
 import {BrowserRouter as Router, Redirect, Route} from 'react-router-dom'
-import Chat from "./components/Chat";
-import ChatProvider, {useChat} from "./components/ChatProvider/ChatProvider";
-import Registration from "./components/RegistrationForm";
+import Chat from "../Chat";
+import ChatProvider, {useChat} from "../ChatProvider/ChatProvider";
+import Registration from "../RegistrationForm";
 
 const userService = new UserService()
 
-
+/**
+ * Вход в приложение
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function App() {
     return (
         <ChatProvider>

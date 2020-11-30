@@ -4,7 +4,13 @@ import Spinner from "../../spinner";
 import {useChat} from "../../ChatProvider/ChatProvider";
 import {useRecipients} from "../../ChatProvider/chatProviderRecipients";
 
-export default function MessageHistory({data, userService}) {
+/**
+ * Компонента истории сообщений
+ * @param data данные, полученные с сервера
+ * @returns {JSX.Element}
+ * @constructor
+ */
+export default function MessageHistory({data}) {
 
     const [userName, setUserName] = useState('')
     const [messages, setMessages] = useState(null)

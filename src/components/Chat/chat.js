@@ -8,25 +8,34 @@ import {useChat} from "../ChatProvider/ChatProvider";
 import {Modal, Button} from "react-bootstrap";
 import ModalWindow from "./ModalWindow";
 
-
+/**
+ * Компонента чата
+ * @param {UserService} userService сервис для связи с сервером
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export default function Chat({userService}) {
 
-    const [connection, setConnection] = useState(null)
+    const [connection, setConnection] = useState (null)
     const [token, setToken] = useState(localStorage.getItem('jwtToken'))
     const [data, setData] = useState([])
     const [show, setShow] = useState(false)
 
-    useEffect(() => {
 
-    })
-
-    useEffect(() => {
+    /**
+     * Создает подключение к серверу в режиме реального времени
+     */
+    const createConnection = () => {
         console.log('chat render ')
         const newConnection = new HubConnectionBuilder()
             .withUrl('https://localhost:44353/dialogs', {
                 accessTokenFactory: () => token,
             },).build()
         setConnection(newConnection)
+    }
+
+    useEffect(() => {
+        createConnection()
     }, [])
 
     useEffect(() => {
@@ -40,7 +49,6 @@ export default function Chat({userService}) {
                         response.forEach((item) => item.active = false)
                         setData(response)
                     })
-
                 })
                 .then(() => handleChecking())
                 .then(() => {
@@ -51,6 +59,10 @@ export default function Chat({userService}) {
         setToken(localStorage.getItem('jwtToken'))
     }, [connection])
 
+    /**
+     * Отправляеят первый инициализирующий запрос сервесу на получение данных
+     * @returns {Promise<void>}
+     */
     const handleChecking = async () => {
         console.log('chat: ', token)
         if (connection.connectionStarted) {
@@ -69,18 +81,31 @@ export default function Chat({userService}) {
 
     const {selectDialog, dialogId} = useChat()
 
+    /**
+     * Показывает диалог
+     * @param id id диалога, который необходимо показать
+     */
     const showDialogue2 = (id) => {
         selectDialog(id)
     }
 
+    /**
+     * Открывает модальное окно
+     */
     const handleShow = () => {
         setShow(true)
     }
 
+    /**
+     * Закрывает модальное окно
+     */
     const handleClose = () => {
         setShow(false)
     }
 
+    /**
+     * Выходит из учетной записи
+     */
     const logOut = () => {
         localStorage.removeItem('username')
         window.location.reload()
